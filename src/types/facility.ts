@@ -6,23 +6,23 @@ export interface CMSApiResponse<T> {
 }
 
 export interface CMSProviderInfo {
-  "CMS Certification Number (CCN)": string;
-  "Provider Name": string;
-  "Location": string;
-  "State": string;
-  "Number of Certified Beds": number;
-  "Overall Rating": number;
-  "Health Inspection Rating": number;
-  "Staffing Rating": number;
-  "QM Rating": number;
+  cms_certification_number_ccn: string;
+  provider_name: string;
+  location: string;
+  state: string;
+  number_of_certified_beds: string;
+  overall_rating: string;
+  health_inspection_rating: string;
+  staffing_rating: string;
+  qm_rating: string;
 }
 
 export interface CMSClaimsQM {
-  "CMS Certification Number (CCN)": string;
-  "Measure Code": string;
-  "Measure Description": string;
-  "Resident type": string;
-  "Adjusted Score": number | null;
+  cms_certification_number_ccn: string;
+  measure_code: string;
+  measure_description: string;
+  resident_type: string;
+  adjusted_score: string | null;
 }
 
 export interface ManualInputs {
@@ -53,16 +53,16 @@ export interface FacilityReportData {
   prevPerformance?: string;
   medicalCoverage?: string;
   claimsQMs?: CMSClaimsQM[];
-  strHospitalization?: number;
-  strNationalAvgHosp?: number;
-  strStateAvgHosp?: number;
-  strEdVisit?: number;
-  strNationalAvgEd?: number;
-  strStateAvgEd?: number;
-  ltHospitalization?: number;
-  ltNationalAvgHosp?: number;
-  ltStateAvgHosp?: number;
-  ltEdVisit?: number;
-  ltNationalAvgEd?: number;
-  ltStateAvgEd?: number;
+  strHospitalization?: string;
+  strNationalAvgHosp?: string;
+  strStateAvgHosp?: string;
+  strEdVisit?: string;
+  strNationalAvgEd?: string;
+  strStateAvgEd?: string;
+  ltHospitalization?: string;
+  ltNationalAvgHosp?: string;
+  ltStateAvgHosp?: string;
+  ltEdVisit?: string;
+  ltNationalAvgEd?: string;
+  ltStateAvgEd?: string;
 }

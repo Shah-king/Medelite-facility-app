@@ -1,0 +1,42 @@
+.app-page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 32px;
+  background: #f8fafc;
+  color: #111827;
+}
+
+.app-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.app-report-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 40%) minmax(0, 60%);
+  gap: 24px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+.app-form-column,
+.app-report-column {
+  min-width: 0;
+}
+
+.app-loaded-ccn {
+  display: block;
+  margin-top: 10px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  .app-page {
+    padding: 20px;
+  }
+
+  .app-report-grid {
+    grid-template-columns: 1fr;
+  }
+}

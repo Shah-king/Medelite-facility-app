@@ -54,7 +54,7 @@ const styles = {
   },
 } satisfies Record<string, CSSProperties>;
 
-function displayValue(value: string | number | null | undefined): string | number {
+function displayValue(value: string | number | null | undefined): ReactNode {
   return value ?? "—";
 }
 
@@ -68,7 +68,7 @@ const FacilityReport = forwardRef<HTMLDivElement, FacilityReportProps>(
       ["Current Census", displayValue(data.currentCensus)],
       ["Type of Patient", displayValue(data.patientType)],
       ["Previous Coverage from Medelite", displayValue(data.prevCoverage)],
-      ["Previous Provider Performance", displayValue(data.prevPerformance)],
+      ["Previous Provider Performance from Medelite", displayValue(data.prevPerformance)],
       ["Medical Coverage", displayValue(data.medicalCoverage)],
       ["Overall Star Rating", data.overallRating],
       ["Health Inspection", data.healthInspectionRating],
@@ -76,14 +76,14 @@ const FacilityReport = forwardRef<HTMLDivElement, FacilityReportProps>(
       ["Quality of Resident Care", data.qmRating],
       ["Short Term Hospitalization", displayValue(data.strHospitalization)],
       ["STR National Avg. for Hospitalization", displayValue(data.strNationalAvgHosp)],
-      ["STR State Avg. for Hospitalization", displayValue(data.strStateAvgHosp)],
+      ["STR State National Avg. for Hospitalization", displayValue(data.strStateAvgHosp)],
       ["STR ED Visit", displayValue(data.strEdVisit)],
       ["STR ED Visits National Avg.", displayValue(data.strNationalAvgEd)],
       ["STR ED Visits State Avg.", displayValue(data.strStateAvgEd)],
       ["LT Hospitalization", displayValue(data.ltHospitalization)],
       ["LT National Avg. for Hospitalization", displayValue(data.ltNationalAvgHosp)],
-      ["LT State Avg. for Hospitalization", displayValue(data.ltStateAvgHosp)],
-      ["LT ED Visit", displayValue(data.ltEdVisit)],
+      ["LT State National Avg. for Hospitalization", displayValue(data.ltStateAvgHosp)],
+      ["ED Visit", displayValue(data.ltEdVisit)],
       ["LT ED Visits National Avg.", displayValue(data.ltNationalAvgEd)],
       ["LT ED Visits State Avg.", displayValue(data.ltStateAvgEd)],
     ];

@@ -105,7 +105,7 @@ function ManualInputs({ values, onChange }: ManualInputsProps) {
       </label>
 
       <label style={styles.field}>
-        <span style={styles.label}>Previous Provider Performance</span>
+        <span style={styles.label}>Previous Provider Performance from Medelite</span>
         <input
           type="text"
           value={values.prevPerformance ?? ""}
