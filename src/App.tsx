@@ -146,6 +146,7 @@ function App() {
           <ExportButton
             reportRef={reportRef}
             disabled={facilityData === null || isLoading}
+            data={reportData}
           />
         </div>
 

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import logo from "../assets/infinite-medelite-logo.png";
 
 interface HeaderProps {
   state: string;
@@ -7,30 +8,29 @@ interface HeaderProps {
 const headerStyles = {
   container: {
     textAlign: "center",
-    padding: "28px 16px 24px",
+    padding: "16px 16px 16px",
     borderBottom: "2px solid #1f2937",
     color: "#111827",
     fontFamily:
       'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
   },
-  brand: {
-    margin: 0,
-    fontSize: "28px",
-    lineHeight: 1.2,
-    fontWeight: 800,
-    letterSpacing: "0.04em",
+  logo: {
+    display: "block",
+    width: "210px",
+    height: "auto",
+    margin: "0 auto 10px",
   },
   title: {
-    margin: "10px 0 0",
-    fontSize: "18px",
-    lineHeight: 1.3,
+    margin: "0",
+    fontSize: "13px",
+    lineHeight: 1.25,
     fontWeight: 700,
-    letterSpacing: "0.08em",
+    letterSpacing: "0.06em",
   },
   state: {
-    margin: "8px 0 0",
-    fontSize: "18px",
-    lineHeight: 1.3,
+    margin: "6px 0 0",
+    fontSize: "13px",
+    lineHeight: 1.25,
     fontWeight: 400,
   },
 } satisfies Record<string, CSSProperties>;
@@ -38,7 +38,11 @@ const headerStyles = {
 function Header({ state }: HeaderProps) {
   return (
     <header style={headerStyles.container}>
-      <h1 style={headerStyles.brand}>INFINITE — Managed by MEDELITE</h1>
+      <img
+        src={logo}
+        alt="INFINITE — Managed by MEDELITE"
+        style={headerStyles.logo}
+      />
       <p style={headerStyles.title}>FACILITY ASSESSMENT SNAPSHOT</p>
       <p style={headerStyles.state}>{state}</p>
     </header>
