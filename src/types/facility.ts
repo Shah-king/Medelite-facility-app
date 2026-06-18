@@ -53,4 +53,16 @@ export interface FacilityReportData {
   prevPerformance?: string;
   medicalCoverage?: string;
   claimsQMs?: CMSClaimsQM[];
+  strHospitalization?: number;
+  strNationalAvgHosp?: number;
+  strStateAvgHosp?: number;
+  strEdVisit?: number;
+  strNationalAvgEd?: number;
+  strStateAvgEd?: number;
+  ltHospitalization?: number;
+  ltNationalAvgHosp?: number;
+  ltStateAvgHosp?: number;
+  ltEdVisit?: number;
+  ltNationalAvgEd?: number;
+  ltStateAvgEd?: number;
 }
