@@ -1,68 +1,0 @@
-Medelite Technical Case Study: Facility Assessment Report Generator 
- 
-AI USE IS ENCOURAGED 
- 
-1. Project Objective 
-As a Director at Medelite, my team routinely evaluates skilled nursing facilities before initiating outreach or partnership discussions. Currently, gathering a facility's performance metrics, star ratings, and hospitalization data requires digging through separate public databases and internal notes. 
-Your task is to build a lightweight web application (a localized "micro-app" or report generator) that allows a user to input a facility's unique identifier to instantly pull public data, combine it with manual operational inputs, and download a polished summary report. 
-2. Core Functional Requirements (The Required MVP) 
-To pass the initial technical review, your application must successfully implement the following: 
-? Dynamic CCN Lookup: An input box where the user can enter any valid CCN (CMS Certification Number) to dynamically fetch data for that specific facility. 
-? The Data Engine: Use the entered CCN to query the public CMS Provider Data Catalog API and instantly fetch the facility's location, star ratings, and metadata. 
-? Facility Name Override: By default, populate the official legal name from the CMS API. However, because Medelite frequently utilizes localized internal names, you must provide an optional text field allowing the user to type a custom name, which will override the API's name on the final output. 
-? Manual Operational Inputs: Input fields for internal metrics that do not live in the public CMS database (EMR, Current Census, Patient Type, and Medelite History). 
-? One Polished PDF Export: A single action button to "Download PDF" that instantly compiles the data and triggers a direct browser download of a clean, print-ready document. 
-? Medicare Source Hyperlink: The generated PDF must include a clickable hyperlink somewhere in the layout linking back to the official Medicare Care Compare source profile using the dynamic CCN. 
-? Example Target URL Format: 
-[https://www.medicare.gov/care-compare/details/nursing-home/105447](https://w ww.medicare.gov/care-compare/details/nursing-home/105447) (where 105447 is dynamically replaced by the searched CCN). 
-? Deployment: A live, working URL link to your hosted application alongside your public code repository. 
-3. Optional Bonus Features (Completely Optional) 
-If you finish the MVP early and want to showcase advanced engineering depth, consider implementing any of the following: 
-? All 12 Hospitalization/ED Metrics: Pull and map the full suite of short-term (STR) and long-term (LT) hospitalization/ED metrics along with their respective state and national averages from the CMS claims-based datasets. 
-? Word Doc Export (.docx): Add an additional action button to download the report as an editable Word document. 
-? Complex Charts/Cards: Display the performance metrics using responsive data cards or visual charts (e.g., using Chart.js or Recharts). 
-? Advanced Error Handling: Build comprehensive boundaries for edge cases (e.g., handling invalid CCNs or missing API data fields cleanly). 
-4. Data Mapping Reference 
-Please refer to the attached NH_Data_Dictionary for precise schema naming. Map your API payload and manual input fields using the criteria below: 
-Report Field Name Expected 
-Data 
-Source Technical Guidance / Fallback Name of Facility CMS API with 
-Manual 
-Override Fetch legal name from API. Replace with custom user text if the manual input override field is used. Location CMS API Pull full address from the database. EMR Manual 
-Input Text field (e.g., "PCC", "MatrixCare"). Census Capacity CMS API Map to "Number of Certified Beds" from CMS. Current Census Manual 
-Input Numeric entry field (e.g., "112"). Type of Patient Manual 
-Input Text field (e.g., "Long-term & Short-term"). Previous Coverage from 
-Medelite Manual 
-Input Dropdown selection (Yes / No). Previous Provider 
-Performance from 
-Medelite Manual 
-Input Text field (e.g., "About 30 patients/day"). Medical Coverage Manual 
-Input Text field (e.g., "Optometry, PCP, Podiatry"). Star Ratings (Overall, 
-Health Inspection, 
-Staffing, Quality Care) CMS API Standard 1-5 performance metrics from CMS. Hospitalization & ED 
-Metrics (12 lines total) CMS API [BONUS FEATURE] See claims-based data hint below. ?? [BONUS] Technical Hint for CMS Claims Data Matching 
-If you choose to tackle the 12 hospitalization/ED metrics, note that they are listed as Claims-Based Quality Measures in the CMS database. 
-? Wherever our shorthand layout uses "STR", map it to the "Short-Stay" resident metrics in the CMS dictionary. 
-? Wherever our shorthand layout uses "LT", map it to the "Long-Stay" resident metrics in the CMS dictionary. 
-Ensure the verbose government dictionary metrics are programmatically renamed to match the clean, user-friendly labels shown in our reference documents. 
-5. Reference Files & Test Case Verification 
-You can access the baseline structure and data references for the project here: 
-Healthcare Data Automation Case Materials 
-This folder contains the following three files: 
-? Facility Assessment Snapshot.docx 
-? Kendall Lakes Healthcare and Rehab Center.pdf 
-? NH_Data_Dictionary 
-To test your API endpoints, data processing math, and document download layouts, use the following sample public facility data as your validation target: 
-? Target Facility: Reference the profile matching "Kendall Lakes Healthcare and Rehab Center.pdf". 
-? CCN to Input: 686123 
-? Sample Expected Outputs to Match: 
-? https://www.medicare.gov/care-compare/details/nursing-home/686123/view-all?st ate=FL 
-6. Visual Branding Requirements 
-? The header block of the web interface and the top page of the generated export files must feature our hardcoded corporate platform branding banner exactly as follows: "INFINITE - Managed by MEDELITE", followed by the header "FACILITY 
-ASSESSMENT SNAPSHOT" and the respective state abbreviation dynamic code (e.g., FL). 
-? ? CRITICAL BRANDING GUARDRAIL: The platform name "INFINITE" is our static internal brand name. Do NOT programmatically replace or overwrite the "INFINITE" branding text with the facility name retrieved from the CMS API or the user's manual text override. The chosen facility name belongs strictly inside the report body layout under "Name of Facility." 
-?? Questions & Assumptions 
-This assignment is designed to mimic a real-world ticket. If you hit an engineering roadblock (e.g., API rate limits, CORS restrictions, or ambiguous schema fields): 
-1. You are welcome to ask clarifying questions via email. 
-2. Alternatively, you may make a reasonable engineering assumption, document it clearly in your README, and proceed with your build. We value resourcefulness over perfection. 
- 

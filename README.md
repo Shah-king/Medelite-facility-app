@@ -1,73 +1,159 @@
-# React + TypeScript + Vite
+# Medelite Facility Assessment Report Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight React micro-app for generating a polished facility assessment report for skilled nursing facilities. The app lets a user enter a CMS Certification Number (CCN), fetches public CMS provider and quality data, combines it with manual Medelite operational inputs, and exports the result as PDF or editable Word document.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Dynamic CCN lookup against CMS Provider Data Catalog APIs.
+- Facility name override for Medelite internal/localized facility naming.
+- Manual operational inputs:
+  - EMR
+  - Current Census
+  - Type of Patient
+  - Previous Coverage from Medelite
+  - Previous Provider Performance from Medelite
+  - Medical Coverage
+- Print-ready facility report with INFINITE / MEDELITE branding.
+- Full 25-row report template based on the provided reference files.
+- Medicare Care Compare hyperlink generated from the searched CCN.
+- PDF export via `html2canvas` and `jsPDF`.
+- Editable Word `.docx` export generated in-browser.
+- Star-rating metric cards and grouped bar charts via Chart.js.
+- CMS CORS workaround using a Vite dev proxy and Vercel rewrite.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Implemented Bonus Features
 
-## Expanding the ESLint configuration
+- All 12 hospitalization / ED rows are present in the report.
+- Facility-specific short-stay and long-stay claims metrics are mapped from CMS claims data.
+- State and national comparison averages are fetched from the CMS averages dataset.
+- Editable Word document export.
+- Responsive metric cards and charts.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Data Sources
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The app currently queries these CMS Provider Data Catalog endpoints:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Provider Information:
+  `4pq5-n9py`
+- Medicare Claims Quality Measures:
+  `ijh5-nb2v`
+- State / National Averages:
+  `xcdc-v8bm`
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+During local development, requests are routed through:
+
+```text
+/cms-provider-data/...
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Vite proxies that path to:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+https://data.cms.gov/...
 ```
+
+For Vercel deployment, `vercel.json` provides the same rewrite.
+
+## Report Mapping
+
+CMS-powered fields include:
+
+- Name of Facility
+- Location
+- Census Capacity
+- Overall Star Rating
+- Health Inspection
+- Staffing
+- Quality of Resident Care
+- Short Term Hospitalization
+- STR ED Visit
+- LT Hospitalization
+- ED Visit
+- State and national comparison averages where available
+
+Manual fields include:
+
+- Facility Name Override
+- EMR
+- Current Census
+- Type of Patient
+- Previous Coverage from Medelite
+- Previous Provider Performance from Medelite
+- Medical Coverage
+
+## Reference Test Case
+
+Use this CCN to validate the app against the provided Kendall Lakes reference materials:
+
+```text
+686123
+```
+
+Care Compare URL format:
+
+```text
+https://www.medicare.gov/care-compare/details/nursing-home/686123
+```
+
+Note: CMS data updates over time, so live API values may differ from the static reference PDF.
+
+## Tech Stack
+
+- React 19
+- TypeScript
+- Vite
+- Chart.js / react-chartjs-2
+- html2canvas
+- jsPDF
+- Browser-generated `.docx` using minimal Office Open XML packaging
+
+## Getting Started
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the local dev server:
+
+```bash
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+## Deployment Notes
+
+The app includes `vercel.json` with a rewrite for CMS API calls:
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/cms-provider-data/:path*",
+      "destination": "https://data.cms.gov/:path*"
+    }
+  ]
+}
+```
+
+This is needed because direct browser calls to CMS endpoints can be blocked by CORS.
+
+## Known Notes
+
+- PDF export captures the rendered report and scales it to fit A4.
+- Word export is editable and includes the report table and Medicare source link.
+- Charts render unavailable comparison values as `0` and show a note when data is missing.
+- The app intentionally keeps INFINITE / MEDELITE branding static; facility names only appear inside the report body.
