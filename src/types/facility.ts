@@ -25,6 +25,14 @@ export interface CMSClaimsQM {
   adjusted_score: string | null;
 }
 
+export interface CMSStateAverage {
+  state_or_nation: string;
+  "percentage_of_short_stay_residents_who_were_rehospitalized__1d02": string;
+  "percentage_of_short_stay_residents_who_had_an_outpatient_em_d911": string;
+  number_of_hospitalizations_per_1000_longstay_resident_days: string;
+  "number_of_outpatient_emergency_department_visits_per_1000_l_de9d": string;
+}
+
 export interface ManualInputs {
   facilityNameOverride?: string;
   emr?: string;
