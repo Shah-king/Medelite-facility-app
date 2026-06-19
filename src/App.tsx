@@ -3,6 +3,7 @@ import CCNInput from "./components/CCNInput";
 import ExportButton from "./components/ExportButton";
 import FacilityReport from "./components/FacilityReport";
 import ManualInputsForm from "./components/ManualInputs";
+import MetricsCharts from "./components/MetricsCharts";
 import { fetchFacilityData } from "./services/cmsApi";
 import type { FacilityReportData, ManualInputs } from "./types/facility";
 import "./App.css";
@@ -45,6 +46,9 @@ const styles = {
     display: "flex",
     justifyContent: "flex-end",
     marginTop: "24px",
+  },
+  chartsSection: {
+    marginTop: "32px",
   },
 } satisfies Record<string, CSSProperties>;
 
@@ -127,19 +131,25 @@ function App() {
         </div>
 
         {reportData ? (
-          <div className="app-report-grid">
-            <section className="app-form-column">
-              <h2 style={styles.columnTitle}>Manual Inputs</h2>
-              <ManualInputsForm
-                values={manualInputs}
-                onChange={handleManualChange}
-              />
-            </section>
+          <>
+            <div className="app-report-grid">
+              <section className="app-form-column">
+                <h2 style={styles.columnTitle}>Manual Inputs</h2>
+                <ManualInputsForm
+                  values={manualInputs}
+                  onChange={handleManualChange}
+                />
+              </section>
 
-            <section className="app-report-column">
-              <FacilityReport ref={reportRef} data={reportData} />
-            </section>
-          </div>
+              <section className="app-report-column">
+                <FacilityReport ref={reportRef} data={reportData} />
+              </section>
+            </div>
+
+            <div style={styles.chartsSection}>
+              <MetricsCharts data={reportData} />
+            </div>
+          </>
         ) : null}
 
         <div style={styles.exportRow}>
